@@ -1,6 +1,4 @@
 {% set version = "0.9.21" %}
-{% set sha256 = "1187b635a4cc415bb6972bba346121f81edd996e99b8f0816151d4090f90b559" %}
-{% set build = 0 %}
 
 package:
   name: lmdb
@@ -9,28 +7,52 @@ package:
 source:
   fn: LMDB_{{ version }}.tar.gz
   url: https://github.com/LMDB/lmdb/archive/LMDB_{{ version }}.tar.gz
-  sha256: {{ sha256 }}
+  sha1: 54d10ee9afaba8db75c8c73832da10b0a47e5807
   patches:
-    - Makefile.patch
+    - 0001-fix-makefile.patch   # [unix]
+    - getopt_win.patch          # [win]
+    - ssize_t.patch             # [win]
 
 build:
-  number: {{ build }}
-  skip: true  # [win]
+  number: 1
+  run_exports:
+    # good backwards compatibility
+    # https://abi-laboratory.pro/tracker/timeline/lmdb/
+    - {{ pin_subpackage('lmdb') }}
+
+requirements:
+  build:
+    - {{ compiler('c') }}
+    - {{ compiler('cxx') }}
+  host:
+    - cmake         # [win]
+    - msinttypes    # [win and py<35]
 
 test:
   commands:
-    - mdb_copy -V                                    # [unix]
-    - mdb_dump -V                                    # [unix]
-    - mdb_load -V                                    # [unix]
-    - mdb_stat -V                                    # [unix]
-    - test -f ${PREFIX}/lib/liblmdb.a                # [unix]
-    - test -f ${PREFIX}/lib/liblmdb.so               # [unix]
+    - mdb_copy -V
+    - mdb_dump -V
+    - mdb_load -V
+    - mdb_stat -V
+
+    - if not exist %LIBRARY_INC%\\lmdb.h    exit 1  #  [win]
+    - if not exist %LIBRARY_INC%\\midl.h    exit 1  #  [win]
+    - if not exist %LIBRARY_LIB%\\lmdb.lib  exit 1  #  [win]
+    - if not exist %LIBRARY_BIN%\\lmdb.dll  exit 1  #  [win]
+    - conda inspect linkages -p $PREFIX lmdb  # [unix]
 
 about:
-  home: http://symas.com/mdb/
-  license: OpenLDAP Public
+  home: https://symas.com/lightning-memory-mapped-database/
+  license: OpenLDAP Public License and BSD 3-clause
   license_file: libraries/liblmdb/LICENSE
+  license_family: BSD
   summary: A high-performance embedded transactional key-value store database.
+  description: |
+    Symas LMDB is an extraordinarily fast, memory-efficient database developed
+    for the Symas OpenLDAP Project. With memory-mapped files, it has the read
+    performance of a pure in-memory database while retaining the persistence of
+    standard disk-based databases.
+  doc_url: http://www.lmdb.tech/doc/
 
 extra:
   recipe-maintainers:
