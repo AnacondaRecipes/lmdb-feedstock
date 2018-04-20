@@ -27,6 +27,7 @@ requirements:
   host:
     - cmake         # [win]
     - msinttypes    # [win and py<35]
+    - make          # [not win]
 
 test:
   commands:
