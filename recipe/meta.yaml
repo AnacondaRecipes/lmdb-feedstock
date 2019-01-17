@@ -1,4 +1,4 @@
-{% set version = "0.9.22" %}
+{% set version = "0.9.23" %}
 
 package:
   name: lmdb
@@ -7,14 +7,14 @@ package:
 source:
   fn: LMDB_{{ version }}.tar.gz
   url: https://github.com/LMDB/lmdb/archive/LMDB_{{ version }}.tar.gz
-  sha1: 5d62d4c7527f3474f60a0d87db2bfd539e6493eb
+  sha1: 801e97190ab68fdceb6daf5fc623f9c3c29d4b4a
   patches:
     - 0001-fix-makefile.patch   # [unix]
     - getopt_win.patch          # [win]
     - ssize_t.patch             # [win]
 
 build:
-  number: 1
+  number: 0
   run_exports:
     # good backwards compatibility
     # https://abi-laboratory.pro/tracker/timeline/lmdb/
