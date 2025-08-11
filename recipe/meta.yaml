@@ -24,7 +24,6 @@ requirements:
   build:
     - {{ compiler('c') }}
     - {{ stdlib('c') }}
-  host:
     - cmake         # [win]
     - make          # [not win]
 
