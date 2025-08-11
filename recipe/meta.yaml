@@ -43,7 +43,7 @@ test:
     - conda inspect linkages -p $PREFIX lmdb  # [unix]
 
 about:
-  home: https://symas.com/lightning-memory-mapped-database
+  home: https://www.symas.com/symas-embedded-database-lmdb
   license: BSD-3-Clause
   license_file: libraries/liblmdb/LICENSE
   license_family: BSD
@@ -53,7 +53,7 @@ about:
     for the Symas OpenLDAP Project. With memory-mapped files, it has the read
     performance of a pure in-memory database while retaining the persistence of
     standard disk-based databases.
-  doc_url: https://www.lmdb.tech/doc
+  doc_url: https://www.symas.com/symas-embedded-database-lmdb
   dev_url: https://github.com/LMDB/lmdb
 
 extra:
