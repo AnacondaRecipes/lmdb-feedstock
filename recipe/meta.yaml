@@ -1,17 +1,17 @@
-{% set version = "0.9.31" %}
+{% set version = "1.0.0" %}
 {% set name = "LMDB" %}
 
 package:
-  name: "{{ name|lower }}"
+  name: {{ name|lower }}
   version: {{ version }}
 
 source:
   url: https://github.com/{{ name }}/{{ name|lower }}/archive/refs/tags/{{ name }}_{{ version }}.tar.gz
-  sha256: dd70a8c67807b3b8532b3e987b0a4e998962ecc28643e1af5ec77696b081c9b0
+  sha256: 44a5ec3a8d71b4287244c538ee80a95e2af40b1a4ee04553359f044c7939734a
   patches:
-    - patches/0001-fix-makefile.patch   # [unix]
-    - patches/getopt_win.patch          # [win]
-    - patches/ssize_t.patch             # [win]
+    - patches/0001-fix-makefile.patch  # [unix]
+    - patches/getopt_win.patch  # [win]
+    - patches/ssize_t.patch  # [win]
 
 build:
   number: 0
@@ -24,8 +24,8 @@ requirements:
   build:
     - {{ compiler('c') }}
     - {{ stdlib('c') }}
-    - cmake         # [win]
-    - make          # [not win]
+    - cmake  # [win]
+    - make  # [not win]
 
 test:
   requires:
@@ -35,7 +35,6 @@ test:
     - mdb_dump -V
     - mdb_load -V
     - mdb_stat -V
-
     - if not exist %LIBRARY_INC%\\lmdb.h    exit 1  #  [win]
     - if not exist %LIBRARY_INC%\\midl.h    exit 1  #  [win]
     - if not exist %LIBRARY_LIB%\\lmdb.lib  exit 1  #  [win]
