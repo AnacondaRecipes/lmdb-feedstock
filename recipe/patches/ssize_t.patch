@@ -4,21 +4,23 @@ Date: Thu, 29 Jun 2017 01:08:03 -0500
 Subject: [PATCH] define ssize_t as int
 
 ---
- libraries/liblmdb/mdb_stat.c | 1 +
- 1 file changed, 1 insertion(+)
+ libraries/liblmdb/mdb_stat.c | 4 ++++
+ 1 file changed, 4 insertions(+)
 
 diff --git a/libraries/liblmdb/mdb_stat.c b/libraries/liblmdb/mdb_stat.c
 index a7315d8..f7b0d95 100644
 --- a/libraries/liblmdb/mdb_stat.c
 +++ b/libraries/liblmdb/mdb_stat.c
-@@ -19,6 +19,7 @@
- 
- #ifdef	_WIN32
- #define	Z	"I"
+@@ -16,6 +16,10 @@
+ #include <string.h>
+ #include <unistd.h>
+ #include "lmdb.h"
++
++#ifdef	_WIN32
 +#define	ssize_t	int
- #else
- #define	Z	"z"
- #endif
--- 
++#endif
+ 
+ #define Z	MDB_FMT_Z
+ #define Yu	MDB_PRIy(u)
+--
 2.5.1.windows.1
-

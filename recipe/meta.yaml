@@ -32,6 +32,7 @@ test:
     - conda-build
   commands:
     - mdb_copy -V
+    - mdb_drop -V
     - mdb_dump -V
     - mdb_load -V
     - mdb_stat -V
@@ -43,9 +44,8 @@ test:
 
 about:
   home: https://www.symas.com/symas-embedded-database-lmdb
-  license: BSD-3-Clause
+  license: OLDAP-2.8
   license_file: libraries/liblmdb/LICENSE
-  license_family: BSD
   summary: A high-performance embedded transactional key-value store database.
   description: |
     Symas LMDB is an extraordinarily fast, memory-efficient database developed

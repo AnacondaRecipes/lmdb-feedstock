@@ -7,7 +7,8 @@ Subject: [PATCH] Use mingw-64 port of getopt
  libraries/liblmdb/mdb_dump.c | 2 +-
  libraries/liblmdb/mdb_load.c | 2 +-
  libraries/liblmdb/mdb_stat.c | 2 +-
- 3 files changed, 3 insertions(+), 3 deletions(-)
+ libraries/liblmdb/mdb_drop.c | 2 +-
+ 4 files changed, 4 insertions(+), 4 deletions(-)
 
 diff --git a/libraries/liblmdb/mdb_dump.c b/libraries/liblmdb/mdb_dump.c
 index 537a499..5074386 100644
@@ -34,7 +35,7 @@ index d193a69..1e1aec9 100644
 +#include <getopt.h>
  #include "lmdb.h"
  
- #define PRINT	1
+ #ifdef _WIN32
 diff --git a/libraries/liblmdb/mdb_stat.c b/libraries/liblmdb/mdb_stat.c
 index 51063ac..a7315d8 100644
 --- a/libraries/liblmdb/mdb_stat.c
@@ -47,7 +48,19 @@ index 51063ac..a7315d8 100644
 +#include <getopt.h>
  #include "lmdb.h"
  
- #ifdef	_WIN32
--- 
+ #define Z	MDB_FMT_Z
+diff --git a/libraries/liblmdb/mdb_drop.c b/libraries/liblmdb/mdb_drop.c
+index 0000000..0000000 100644
+--- a/libraries/liblmdb/mdb_drop.c
++++ b/libraries/liblmdb/mdb_drop.c
+@@ -16,7 +16,7 @@
+ #include <stdlib.h>
+ #include <string.h>
+ #include <ctype.h>
+-#include <unistd.h>
++#include <getopt.h>
+ #include <signal.h>
+ #include "lmdb.h"
+ 
+--
 2.5.1.windows.1
-
