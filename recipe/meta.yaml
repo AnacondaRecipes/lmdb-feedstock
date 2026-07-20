@@ -11,6 +11,7 @@ source:
   patches:
     - patches/0001-fix-makefile.patch  # [unix]
     - patches/getopt_win.patch  # [win]
+    - patches/getopt_win_drop.patch  # [win]
     - patches/ssize_t.patch  # [win]
 
 build:

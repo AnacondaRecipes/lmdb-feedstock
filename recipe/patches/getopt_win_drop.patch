@@ -1,0 +1,24 @@
+From 1a2b3c4d5e6f7a8b9c0d1e2f3a4b5c6d7e8f9a0b Mon Sep 17 00:00:00 2001
+From: Nehal J Wani <nehaljw.kkd1@gmail.com>
+Date: Thu, 29 Jun 2017 00:54:09 -0500
+Subject: [PATCH] Use mingw-64 port of getopt in mdb_drop
+
+---
+ libraries/liblmdb/mdb_drop.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/libraries/liblmdb/mdb_drop.c b/libraries/liblmdb/mdb_drop.c
+index 8a1b2c3..d4e5f6a 100644
+--- a/libraries/liblmdb/mdb_drop.c
++++ b/libraries/liblmdb/mdb_drop.c
+@@ -16,7 +16,7 @@
+ #include <stdlib.h>
+ #include <string.h>
+ #include <ctype.h>
+-#include <unistd.h>
++#include <getopt.h>
+ #include <signal.h>
+ #include "lmdb.h"
+
+--
+2.5.1.windows.1
