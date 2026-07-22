@@ -3,6 +3,10 @@ From: Nehal J Wani <nehaljw.kkd1@gmail.com>
 Date: Thu, 29 Jun 2017 01:08:03 -0500
 Subject: [PATCH] define ssize_t as int
 
+Rebased for 1.0.0: upstream replaced the code block this patch
+targeted with new MDB_FMT_Z/MDB_PRIy macros, so the diff is redone
+against the new context; the fix itself is unchanged.
+
 ---
  libraries/liblmdb/mdb_stat.c | 4 ++++
  1 file changed, 4 insertions(+)

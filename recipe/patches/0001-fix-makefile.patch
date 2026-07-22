@@ -5,8 +5,10 @@ Subject: [PATCH] fix makefile
 
 Remove CC and AR definitions from the Makefile, use from the environment
 unset prefix
-libdl does not exist on macOS/BSD (dlopen lives in libSystem/libc) and
-Apple's linker does not support -Wl,-soname, so skip both on Darwin.
+
+Rebased for 1.0.0 (context shifted, fix unchanged). Also gates LDL and
+VERSION_OPT on Darwin: 1.0.0 added -ldl and -Wl,-soname unconditionally,
+but macOS has no libdl and its linker doesn't support -soname.
 ---
  libraries/liblmdb/Makefile | 15 +++++++++++++--
  1 file changed, 13 insertions(+), 2 deletions(-)

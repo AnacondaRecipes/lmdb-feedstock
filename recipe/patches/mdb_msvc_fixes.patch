@@ -1,18 +1,7 @@
-From 2b4e7f91a3c8d5610e2a4f7b9c1d3e5a7b9c1d3e Mon Sep 17 00:00:00 2001
-From: Anaconda Packaging <packaging@anaconda.com>
-Date: Mon, 20 Jul 2026 00:00:00 -0500
-Subject: [PATCH] fix MSVC build errors in mdb.c for 1.0.0
-
-Upstream 1.0.0 introduced code that does not compile under MSVC:
-- void* pointer arithmetic in mdb_rpage_get() (MSVC rejects the GNU
-  extension; cast to char* first).
-- LARGE_INTEGER (a union) assigned/incremented/compared like a plain
-  integer in mdb_env_copyfd0() and mdb_env_incr_loadfd(); must go
-  through .QuadPart on Windows.
----
- libraries/liblmdb/mdb.c | 30 +++++++++++++++++++++++-------
- 1 file changed, 23 insertions(+), 7 deletions(-)
-
+# Fixes MSVC build errors in LMDB 1.0.0's mdb.c: void* pointer
+# arithmetic (MSVC rejects the GNU extension) and LARGE_INTEGER (a
+# union) used as a plain integer. Confirmed as upstream bug ITS#10539,
+# resolved in OpenLDAP master for the 1.0.1 milestone.
 diff --git a/libraries/liblmdb/mdb.c b/libraries/liblmdb/mdb.c
 index 1234567..89abcde 100644
 --- a/libraries/liblmdb/mdb.c
@@ -61,7 +50,7 @@ index 1234567..89abcde 100644
  			continue;
 @@ -11946,7 +11954,8 @@
  		return ENOMEM;
- 
+
  #ifdef _WIN32
 -		SetFilePointerEx(env->me_fd, 0, NULL, FILE_BEGIN);
 +		off.QuadPart = 0;
@@ -93,5 +82,3 @@ index 1234567..89abcde 100644
  		ptr = pbuf;
  		while (rsize > 0) {
  			w2 = (rsize > MAX_WRITE) ? MAX_WRITE: rsize;
---
-2.11.1
