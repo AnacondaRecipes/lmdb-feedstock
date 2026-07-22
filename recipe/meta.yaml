@@ -48,7 +48,7 @@ about:
   home: https://www.symas.com/symas-embedded-database-lmdb
   license: OLDAP-2.8
   license_file: libraries/liblmdb/LICENSE
-  license_family: BSD
+  license_family: other
   summary: A high-performance embedded transactional key-value store database.
   description: |
     Symas LMDB is an extraordinarily fast, memory-efficient database developed
