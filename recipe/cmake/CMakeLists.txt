@@ -26,7 +26,7 @@ set(CMAKE_SHARED_LINKER_FLAGS_DEBUG "${CMAKE_SHARED_LINKER_FLAGS_DEBUG} /DEF:${C
 set(CMAKE_SHARED_LINKER_FLAGS_RELEASE "${CMAKE_SHARED_LINKER_FLAGS_DEBUG} /DEF:${CMAKE_CURRENT_SOURCE_DIR}/lmdb.def")
 endif()
 
-set(SRCS lmdb mdb.c lmdb.h midl.c midl.h )
+set(SRCS lmdb mdb.c lmdb.h midl.c midl.h module.c)
 add_library(lmdb ${SRCS})
 set_target_properties(lmdb PROPERTIES DEBUG_POSTFIX d)
 target_link_libraries(lmdb PRIVATE ntdll.lib)
@@ -60,7 +60,7 @@ install(EXPORT lmdb-targets DESTINATION ${LMDB_CONFIG_INSTALL_DIR})
 
 if(LMDB_BUILD_TOOLS)
   # build mdb_dump/load/stat with getopt.h from mingw-64
-  foreach(_tool mdb_copy mdb_dump mdb_load mdb_stat)
+  foreach(_tool mdb_copy mdb_drop mdb_dump mdb_load mdb_stat)
     add_executable(${_tool} ${_tool}.c getopt/getopt.c)
     target_link_libraries(${_tool} lmdb)
     install(FILES ${CMAKE_CURRENT_BINARY_DIR}/${_tool}.exe DESTINATION ${LMDB_RUNTIME_INSTALL_DIR})
